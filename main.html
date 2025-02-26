@@ -40,44 +40,30 @@
     </div>
     
     <script>
-       
-	   let input = document.querySelectorAll(".code")
+        let input = document.querySelectorAll(".code");
 
-	   for(let t of input){
-		t.addEventListener("input",(e)=>{
-			if(t.value !== ""){
-			let nextInput = t.nextElementSibling;
-			if(nextInput){
-			nextInput.focus();
-				}
-			}
-		})
-  t.addEventListener("keydown",(e)=>{
-if(t.value == "" && e.key =="Backspace"){
-   let prevalue = t.previousElementSibling
-   if(prevalue){
-	prevalue.focus()
-	prevalue.value == ""
-   }5
-}
-  })
+        for (let t of input) {
+            // जब यूजर टाइप करे, अगला इनपुट फोकस में आए
+            t.addEventListener("input", (e) => {
+                if (e.inputType !== "deleteContentBackward" && t.value !== "") {
+                    let nextInput = t.nextElementSibling;
+                    if (nextInput) {
+                        nextInput.focus();
+                    }
+                }
+            });
 
-
-	   }
+            // जब यूजर बैकस्पेस दबाए, पिछला इनपुट साफ हो और फोकस में आए
+            t.addEventListener("keydown", (e) => {
+                if (e.key === "Backspace" && t.value === "") {
+                    let prevInput = t.previousElementSibling;
+                    if (prevInput) {
+                        prevInput.focus();
+                        prevInput.value = ""; // ❗ यहाँ `=` का सही इस्तेमाल किया गया है
+                    }
+                }
+            });
+        }
     </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!-- e.inputType !== "deleteContentBackward" -->
